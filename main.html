@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Основні UI елементи — Домашнє завдання (QC/QA)</title>
+    <!-- Підключення Tailwind CSS для охайного мінімалістичного оформлення -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Стилі для кастомного тултіпа (Елемент №8) */
+        .tooltip-container:hover .tooltip-box,
+        .tooltip-container:focus-within .tooltip-box {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .tooltip-box {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(4px);
+            transition: all 0.2s ease-in-out;
+        }
+    </style>
+</head>
+<body id="top" class="bg-slate-50 text-slate-800 min-h-screen">
+
+    <!-- Основний контент -->
+    <main class="max-w-4xl w-full mx-auto px-4 py-8 space-y-6">
+
+        <!-- 1. Radiobutton -->
+        <section id="el-1" class="bg-white border border-slate-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded">Елемент #1</span>
+                <h2 class="text-lg font-bold text-slate-900">Radiobutton (Радіокнопка / Перемикач)</h2>
+            </div>
+            <p class="text-sm text-slate-600 mb-4">
+                <strong>Призначення:</strong> Дозволяє користувачеві обрати <em>лише один</em> варіант із взаємовиключного набору опцій. При виборі нової радіокнопки попередній вибір у межах тієї ж групи автоматично знімається.
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-md p-4">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Приклад роботи:</p>
+                <fieldset class="space-y-2">
+                    <legend class="text-sm font-medium text-slate-800 mb-2">Оберіть середовище для запуску тестів:</legend>
+                    <label class="flex items-center gap-2.5 cursor-pointer text-sm">
+                        <input type="radio" name="env" value="Development (DEV)" checked onchange="updateRadioResult(this.value)" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                        <span>Development (DEV)</span>
+                    </label>
+                    <label class="flex items-center gap-2.5 cursor-pointer text-sm">
+                        <input type="radio" name="env" value="Staging (QA)" onchange="updateRadioResult(this.value)" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                        <span>Staging (QA)</span>
+                    </label>
+                    <label class="flex items-center gap-2.5 cursor-pointer text-sm">
+                        <input type="radio" name="env" value="Production (PROD)" onchange="updateRadioResult(this.value)" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                        <span>Production (PROD)</span>
+                    </label>
+                </fieldset>
+                <p id="radio-output" class="mt-3 text-xs text-slate-600 bg-white px-3 py-1.5 rounded border border-slate-200 inline-block">
+                    Обране середовище: <strong>Development (DEV)</strong>
+                </p>
+            </div>
+        </section>
+
+        <!-- 2. Checkbox -->
+        <section id="el-2" class="bg-white border border-slate-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded">Елемент #2</span>
+                <h2 class="text-lg font-bold text-slate-900">Checkbox (Прапорець / Чекбокс)</h2>
+            </div>
+            <p class="text-sm text-slate-600 mb-4">
+                <strong>Призначення:</strong> Використовується для вибору нуля, одного або декількох незалежних варіантів зі списку, або для увімкнення/вимкнення певної окремої опції (наприклад, згода з умовами).
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-md p-4">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Приклад роботи:</p>
+                <div class="space-y-2">
+                    <p class="text-sm font-medium text-slate-800 mb-2">Оберіть типи тестування для релізу:</p>
+                    <label class="flex items-center gap-2.5 cursor-pointer text-sm">
+                        <input type="checkbox" name="test-type" value="Smoke тестування" checked onchange="updateCheckboxResult()" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
+                        <span>Smoke тестування</span>
+                    </label>
+                    <label class="flex items-center gap-2.5 cursor-pointer text-sm">
+                        <input type="checkbox" name="test-type" value="Регресійне тестування" onchange="updateCheckboxResult()" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
+                        <span>Регресійне тестування</span>
+                    </label>
+                    <label class="flex items-center gap-2.5 cursor-pointer text-sm">
+                        <input type="checkbox" name="test-type" value="Навантажувальне тестування" onchange="updateCheckboxResult()" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
+                        <span>Навантажувальне тестування</span>
+                    </label>
+                </div>
+                <p id="checkbox-output" class="mt-3 text-xs text-slate-600 bg-white px-3 py-1.5 rounded border border-slate-200 inline-block">
+                    Обрано (1): <strong>Smoke тестування</strong>
+                </p>
+            </div>
+        </section>
+
+        <!-- 3. Text input -->
+        <section id="el-3" class="bg-white border border-slate-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded">Елемент #3</span>
+                <h2 class="text-lg font-bold text-slate-900">Text input (Текстове поле вводу)</h2>
+            </div>
+            <p class="text-sm text-slate-600 mb-4">
+                <strong>Призначення:</strong> Базовий елемент форми, який дозволяє користувачеві вводити та редагувати однорядкові текстові дані (ім'я, логін, пошуковий запит, email тощо) з клавіатури або з буфера обміну.
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-md p-4">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Приклад роботи:</p>
+                <div class="max-w-md space-y-2">
+                    <input 
+                        type="text" 
+                        id="sample-text-input" 
+                        placeholder="Введіть назву баг-репорту..." 
+                        maxlength="60"
+                        oninput="updateTextInput(this.value)"
+                        class="w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    >
+                    <div class="flex justify-between text-xs text-slate-500">
+                        <span id="text-input-preview">Попередній перегляд: <em>(порожньо)</em></span>
+                        <span id="text-input-counter">0 / 60 символів</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Tabs -->
+        <section id="el-4" class="bg-white border border-slate-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded">Елемент #4</span>
+                <h2 class="text-lg font-bold text-slate-900">Tabs (Вкладки)</h2>
+            </div>
+            <p class="text-sm text-slate-600 mb-4">
+                <strong>Призначення:</strong> Організовують пов'язаний контент у декілька окремих розділів в одній області екрана. Дозволяють користувачеві швидко перемикатися між розділами без перезавантаження сторінки.
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-md p-4">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Приклад роботи:</p>
+                <!-- Навігація вкладок -->
+                <div class="flex border-b border-slate-200 bg-white rounded-t-md px-2 pt-2 gap-1" role="tablist">
+                    <button 
+                        type="button"
+                        onclick="switchTab(0)" 
+                        id="tab-btn-0"
+                        class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-blue-600 text-blue-600 transition">
+                        Опис (Summary)
+                    </button>
+                    <button 
+                        type="button"
+                        onclick="switchTab(1)" 
+                        id="tab-btn-1"
+                        class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition">
+                        Кроки відтворення (Steps)
+                    </button>
+                    <button 
+                        type="button"
+                        onclick="switchTab(2)" 
+                        id="tab-btn-2"
+                        class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition">
+                        Очікуваний результат
+                    </button>
+                </div>
+                <!-- Контент вкладок -->
+                <div class="bg-white p-4 rounded-b-md border border-t-0 border-slate-200 text-sm text-slate-700">
+                    <div id="tab-panel-0" class="tab-panel">
+                        <strong>Баг #104:</strong> Кнопка «Оформити замовлення» залишається неактивною після заповнення всіх обов'язкових полів форми доставки.
+                    </div>
+                    <div id="tab-panel-1" class="tab-panel hidden">
+                        <ol class="list-decimal list-inside space-y-1">
+                            <li>Додати будь-який товар у кошик.</li>
+                            <li>Перейти на сторінку оформлення замовлення.</li>
+                            <li>Заповнити поля Ім'я, Телефон та Адреса валідними даними.</li>
+                        </ol>
+                    </div>
+                    <div id="tab-panel-2" class="tab-panel hidden">
+                        Кнопка «Оформити замовлення» стає активною (доступною для натискання) одразу після заповнення обов'язкових полів.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Button -->
+        <section id="el-5" class="bg-white border border-slate-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded">Елемент #5</span>
+                <h2 class="text-lg font-bold text-slate-900">Button (Кнопка)</h2>
+            </div>
+            <p class="text-sm text-slate-600 mb-4">
+                <strong>Призначення:</strong> Інтерактивний елемент керування, який ініціює миттєву дію або подію при натисканні користувачем (наприклад, відправка форми, збереження даних, запуск процесу або очищення полів).
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-md p-4">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Приклад роботи:</p>
+                <div class="flex flex-wrap items-center gap-3">
+                    <button 
+                        type="button" 
+                        onclick="handleButtonClick()"
+                        class="px-4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-sm font-medium rounded-md transition shadow-sm">
+                        Запустити автотест
+                    </button>
+                    <button 
+                        type="button" 
+                        onclick="resetButtonClick()"
+                        class="px-3 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-sm font-medium rounded-md transition">
+                        Скинути лічильник
+                    </button>
+                    <button 
+                        type="button" 
+                        disabled
+                        class="px-3 py-2 bg-slate-200 text-slate-400 text-sm font-medium rounded-md cursor-not-allowed">
+                        Неактивна кнопка (Disabled)
+                    </button>
+                </div>
+                <p id="button-status" class="mt-3 text-xs text-slate-600 bg-white px-3 py-1.5 rounded border border-slate-200 inline-block">
+                    Статус: Кнопку ще не натискали (0 разів).
+                </p>
+            </div>
+        </section>
+
+        <!-- 6. Text label -->
+        <section id="el-6" class="bg-white border border-slate-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded">Елемент #6</span>
+                <h2 class="text-lg font-bold text-slate-900">Text label (Текстова мітка / Підпис)</h2>
+            </div>
+            <p class="text-sm text-slate-600 mb-4">
+                <strong>Призначення:</strong> Статичний текстовий підпис, програмно пов'язаний із конкретним елементом форми (через атрибут <code class="bg-slate-100 px-1 py-0.5 rounded text-xs">for</code>). Пояснює, які саме дані потрібно ввести, а також покращує доступність (Accessibility): клік по мітці автоматично встановлює фокус у прив'язане поле або перемикає чекбокс.
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-md p-4">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Приклад роботи (натисніть прямо на текст підпису):</p>
+                <div class="max-w-sm space-y-1.5">
+                    <label for="tester-email-input" class="block text-sm font-medium text-slate-800 cursor-pointer hover:text-blue-600 transition">
+                        Робочий Email тестувальника (клікніть сюди для фокусу):
+                    </label>
+                    <input 
+                        type="email" 
+                        id="tester-email-input" 
+                        placeholder="qa.engineer@company.com" 
+                        class="w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    >
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Link -->
+        <section id="el-7" class="bg-white border border-slate-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded">Елемент #7</span>
+                <h2 class="text-lg font-bold text-slate-900">Link (Гіперпосилання)</h2>
+            </div>
+            <p class="text-sm text-slate-600 mb-4">
+                <strong>Призначення:</strong> Елемент навігації (тег <code class="bg-slate-100 px-1 py-0.5 rounded text-xs">&lt;a&gt;</code>), призначений для переходу користувача на іншу вебсторінку, зовнішній ресурс, завантаження файлу або переміщення до іншої секції поточної сторінки (якірне посилання).
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-md p-4">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Приклад роботи:</p>
+                <div class="flex flex-wrap gap-6 text-sm">
+                    <a href="#top" class="text-blue-600 hover:text-blue-800 underline font-medium">
+                        ↑ Внутрішнє посилання (прокрутити на початок сторінки)
+                    </a>
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline font-medium">
+                        Зовнішнє посилання на документацію MDN (відкриється у новій вкладці) ↗
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Tooltip -->
+        <section id="el-8" class="bg-white border border-slate-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded">Елемент #8</span>
+                <h2 class="text-lg font-bold text-slate-900">Tooltip (Спливаюча підказка)</h2>
+            </div>
+            <p class="text-sm text-slate-600 mb-4">
+                <strong>Призначення:</strong> Невелике інформаційне вікно, яке з'являється при наведенні курсора миші (hover) або фокусі з клавіатури на елемент інтерфейсу. Надає коротке додаткове пояснення без захаращення основного екрана.
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-md p-4">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Приклад роботи (наведіть курсор на іконку або кнопку):</p>
+                <div class="flex flex-wrap items-center gap-6 py-2">
+                    <!-- Приклад із кастомним тултіпом -->
+                    <div class="relative inline-block tooltip-container">
+                        <button type="button" class="px-3 py-1.5 bg-white border border-slate-300 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 flex items-center gap-1.5">
+                            <span>Пріоритет: Blocker</span>
+                            <span class="inline-flex items-center justify-center w-4 h-4 text-xs font-bold bg-slate-200 text-slate-700 rounded-full">?</span>
+                        </button>
+                        <div role="tooltip" class="tooltip-box absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-2.5 bg-slate-800 text-white text-xs rounded shadow-lg z-10 pointer-events-none">
+                            <strong>Blocker (Блокер):</strong> Критична помилка, яка блокує подальше тестування або роботу ключового функціоналу системи.
+                        </div>
+                    </div>
+
+                    <!-- Приклад зі стандартним нативним title -->
+                    <span title="Це стандартний нативний HTML-тултіп через атрибут title" class="text-sm text-slate-600 border-b border-dashed border-slate-400 cursor-help">
+                        Текст із нативним атрибутом title (затримайте курсор)
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Dropdown list -->
+        <section id="el-9" class="bg-white border border-slate-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded">Елемент #9</span>
+                <h2 class="text-lg font-bold text-slate-900">Dropdown list (Випадаючий список)</h2>
+            </div>
+            <p class="text-sm text-slate-600 mb-4">
+                <strong>Призначення:</strong> Компактний елемент вибору, який у згорнутому стані займає лише один рядок, а при натисканні розгортає список доступних опцій. Заощаджує місце на екрані, коли варіантів вибору більше ніж 4–5.
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-md p-4">
+                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Приклад роботи:</p>
+                <div class="max-w-xs space-y-2">
+                    <label for="severity-select" class="block text-sm font-medium text-slate-800">Оберіть серйозність дефекту (Severity):</label>
+                    <select 
+                        id="severity-select" 
+                        onchange="updateDropdownResult(this.value)"
+                        class="w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="S1 - Critical (Критична)">S1 - Critical (Критична)</option>
+                        <option value="S2 - Major (Значна)" selected>S2 - Major (Значна)</option>
+                        <option value="S3 - Minor (Незначна)">S3 - Minor (Незначна)</option>
+                        <option value="S4 - Trivial (Косметична)">S4 - Trivial (Косметична)</option>
+                    </select>
+                </div>
+                <p id="dropdown-output" class="mt-3 text-xs text-slate-600 bg-white px-3 py-1.5 rounded border border-slate-200 inline-block">
+                    Обране значення: <strong>S2 - Major (Значна)</strong>
+                </p>
+            </div>
+        </section>
+
+        <!-- 10. Data grid -->
+        <section id="el-10" class="bg-white border border-slate-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded">Елемент #10</span>
+                <h2 class="text-lg font-bold text-slate-900">Data grid (Таблиця даних)</h2>
+            </div>
+            <p class="text-sm text-slate-600 mb-4">
+                <strong>Призначення:</strong> Відображає структуровані однотипні дані у вигляді рядків та стовпців. На відміну від простої статичної таблиці, Data Grid зазвичай підтримує додаткові можливості: сортування за стовпцями, фільтрацію, пошук або пагінацію.
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-md p-4">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                        Приклад роботи (натисніть на заголовок стовпця для сортування):
+                    </p>
+                    <input 
+                        type="text" 
+                        id="grid-search" 
+                        oninput="filterGrid(this.value)"
+                        placeholder="Швидкий фільтр по таблиці..." 
+                        class="px-2.5 py-1 bg-white border border-slate-300 rounded text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    >
+                </div>
+
+                <div class="overflow-x-auto bg-white border border-slate-200 rounded-md">
+                    <table class="w-full text-left border-collapse text-sm" id="qa-data-grid">
+                        <thead>
+                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-700 select-none">
+                                <th onclick="sortGrid(0)" class="py-2.5 px-4 font-semibold cursor-pointer hover:bg-slate-200 transition">
+                                    ID <span class="text-xs text-slate-400">↕</span>
+                                </th>
+                                <th onclick="sortGrid(1)" class="py-2.5 px-4 font-semibold cursor-pointer hover:bg-slate-200 transition">
+                                    Назва тест-кейсу <span class="text-xs text-slate-400">↕</span>
+                                </th>
+                                <th onclick="sortGrid(2)" class="py-2.5 px-4 font-semibold cursor-pointer hover:bg-slate-200 transition">
+                                    Модуль <span class="text-xs text-slate-400">↕</span>
+                                </th>
+                                <th onclick="sortGrid(3)" class="py-2.5 px-4 font-semibold cursor-pointer hover:bg-slate-200 transition">
+                                    Статус <span class="text-xs text-slate-400">↕</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="grid-body" class="divide-y divide-slate-200">
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-2.5 px-4 font-mono text-xs text-slate-600">TC-101</td>
+                                <td class="py-2.5 px-4">Авторизація з валідним логіном та паролем</td>
+                                <td class="py-2.5 px-4">Auth</td>
+                                <td class="py-2.5 px-4"><span class="px-2 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-800 rounded">Passed</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-2.5 px-4 font-mono text-xs text-slate-600">TC-102</td>
+                                <td class="py-2.5 px-4">Відновлення пароля через неіснуючий Email</td>
+                                <td class="py-2.5 px-4">Auth</td>
+                                <td class="py-2.5 px-4"><span class="px-2 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-800 rounded">Passed</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-2.5 px-4 font-mono text-xs text-slate-600">TC-103</td>
+                                <td class="py-2.5 px-4">Оплата замовлення карткою без достатнього балансу</td>
+                                <td class="py-2.5 px-4">Checkout</td>
+                                <td class="py-2.5 px-4"><span class="px-2 py-0.5 text-xs font-medium bg-rose-100 text-rose-800 rounded">Failed</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="py-2.5 px-4 font-mono text-xs text-slate-600">TC-104</td>
+                                <td class="py-2.5 px-4">Фільтрація товарів за ціновим діапазоном</td>
+                                <td class="py-2.5 px-4">Catalog</td>
+                                <td class="py-2.5 px-4"><span class="px-2 py-0.5 text-xs font-medium bg-amber-100 text-amber-800 rounded">Blocked</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Логіка інтерактивних прикладів -->
+    <script>
+        // 1. Radiobutton
+        function updateRadioResult(value) {
+            document.getElementById('radio-output').innerHTML = 'Обране середовище: <strong>' + value + '</strong>';
+        }
+
+        // 2. Checkbox
+        function updateCheckboxResult() {
+            const checked = Array.from(document.querySelectorAll('input[name="test-type"]:checked')).map(cb => cb.value);
+            const output = document.getElementById('checkbox-output');
+            if (checked.length === 0) {
+                output.innerHTML = 'Обрано (0): <em>жодного варіанту не обрано</em>';
+            } else {
+                output.innerHTML = 'Обрано (' + checked.length + '): <strong>' + checked.join(', ') + '</strong>';
+            }
+        }
+
+        // 3. Text input
+        function updateTextInput(value) {
+            const preview = document.getElementById('text-input-preview');
+            const counter = document.getElementById('text-input-counter');
+            const trimmed = value.trim();
+            preview.innerHTML = trimmed ? 'Попередній перегляд: <strong>' + trimmed.replace(/</g, "&lt;") + '</strong>' : 'Попередній перегляд: <em>(порожньо)</em>';
+            counter.textContent = value.length + ' / 60 символів';
+        }
+
+        // 4. Tabs
+        function switchTab(activeIndex) {
+            const buttons = document.querySelectorAll('.tab-btn');
+            const panels = document.querySelectorAll('.tab-panel');
+            buttons.forEach((btn, index) => {
+                if (index === activeIndex) {
+                    btn.classList.add('border-blue-600', 'text-blue-600');
+                    btn.classList.remove('border-transparent', 'text-slate-600');
+                } else {
+                    btn.classList.remove('border-blue-600', 'text-blue-600');
+                    btn.classList.add('border-transparent', 'text-slate-600');
+                }
+            });
+            panels.forEach((panel, index) => {
+                panel.classList.toggle('hidden', index !== activeIndex);
+            });
+        }
+
+        // 5. Button
+        let clickCount = 0;
+        function handleButtonClick() {
+            clickCount++;
+            document.getElementById('button-status').innerHTML = 
+                'Статус: Автотест успішно запущено! Кількість натискань: <strong>' + clickCount + '</strong>';
+        }
+        function resetButtonClick() {
+            clickCount = 0;
+            document.getElementById('button-status').textContent = 'Статус: Лічильник скинуто (0 разів).';
+        }
+
+        // 9. Dropdown list
+        function updateDropdownResult(value) {
+            document.getElementById('dropdown-output').innerHTML = 'Обране значення: <strong>' + value + '</strong>';
+        }
+
+        // 10. Data grid — Сортування та фільтрація
+        let sortDirection = true;
+        function sortGrid(colIndex) {
+            const tbody = document.getElementById('grid-body');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            sortDirection = !sortDirection;
+
+            rows.sort((a, b) => {
+                const cellA = a.children[colIndex].innerText.trim().toLowerCase();
+                const cellB = b.children[colIndex].innerText.trim().toLowerCase();
+                if (cellA < cellB) return sortDirection ? -1 : 1;
+                if (cellA > cellB) return sortDirection ? 1 : -1;
+                return 0;
+            });
+
+            rows.forEach(row => tbody.appendChild(row));
+        }
+
+        function filterGrid(query) {
+            const normalized = query.toLowerCase().trim();
+            const rows = document.querySelectorAll('#grid-body tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(normalized) ? '' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
